@@ -11,7 +11,8 @@ xdmp:set-response-content-type("text/html"),
         <ul>
         {
             for $x in doc()/book
-                return <li>{data($x/title)}</li>
+            let $title := $x/title
+                return <li>{data($title)}</li>
         }
         </ul>
     </body>
