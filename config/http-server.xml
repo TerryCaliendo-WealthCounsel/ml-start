@@ -1,0 +1,8 @@
+<http-server-properties xmlns="https://marklogic.com/manage">
+  <server-name>WealthCouncel</server-name>
+  <root>D:\Backup\www\WealthCouncel\ml-start</root>
+  <port>8080</port>
+  <content-database>Documents</content-database>
+</http-server-properties>
+
+
