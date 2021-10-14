@@ -28,18 +28,26 @@ xdmp:set-response-content-type("text/html"),
         </form>  
 
         <div>
-            <h1>Search Results</h1>
-            <ul>
             {
                 let $queryTerm := "al"
                 return
-                    if (fn:exists($queryTerm) and $queryTerm ne '') then (
-                        for $book in doc()/book
-                        where $book/title[matches(., $queryTerm, "i")]
-                        return <li>{$book}</li>
-                    ) else ()
+                <div>
+                        {
+                            if (fn:exists($queryTerm) and $queryTerm ne '') then (
+                                <div>
+                                    <h1>Search Results</h1>
+                                    <ul>
+                                    {
+                                        for $book in doc()/book
+                                        where $book/title[matches(., $queryTerm, "i")]
+                                        return <li>{$book}</li>
+                                    }
+                                    </ul>
+                                </div>
+                            ) else ()
+                        }
+                </div>
             }
-            </ul>
         </div>
         
     </body>
