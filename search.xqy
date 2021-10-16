@@ -1,3 +1,11 @@
+xquery version "1.0-ml";
+
+
+declare function local:sanitizeInput($chars as xs:string?) {
+    fn:replace($chars,"[\]\[<>{}\\();%\+]","")
+};
+
+
 
 (: build the html :)
 xdmp:set-response-content-type("text/html"),
@@ -7,7 +15,7 @@ xdmp:set-response-content-type("text/html"),
         <title>Search Books</title>
     </head>
     <body>
-        <form name="add-book" action="add-book.xqy" method="post">
+        <form name="add-book" action="" method="post">
             <fieldset>
                 <legend>Search Book</legend>
                 <label for="title">Title</label> <input type="text" id="title" name="title"/>
@@ -23,7 +31,7 @@ xdmp:set-response-content-type("text/html"),
                         <option value="{$c}">{$c}</option>
                     }
                 </select>
-                <input type="submit" value="Save"/>
+                <input type="submit" value="Search"/>
             </fieldset>
         </form>  
 
@@ -33,18 +41,32 @@ xdmp:set-response-content-type("text/html"),
                 return
                 <div>
                         {
-                            if (fn:exists($queryTerm) and $queryTerm ne '') then (
-                                <div>
-                                    <h1>Search Results</h1>
-                                    <ul>
-                                    {
-                                        for $book in doc()/book
-                                        where $book/title[matches(., $queryTerm, "i")]
-                                        return <li>{$book}</li>
-                                    }
-                                    </ul>
-                                </div>
+
+                            if (xdmp:get-request-method() eq "POST") then (
+                                let $title as xs:string? := local:sanitizeInput(xdmp:get-request-field("title"))
+                                let $author as xs:string? := local:sanitizeInput(xdmp:get-request-field("author"))
+                                let $year as xs:string? := local:sanitizeInput(xdmp:get-request-field("year"))
+                                let $price as xs:string? := local:sanitizeInput(xdmp:get-request-field("price"))
+                                let $category as xs:string? := local:sanitizeInput(xdmp:get-request-field("category"))
+                                
+                                return
+                                    <div>
+                                        <h1>Search Results: {$title}</h1>
+                                        <ul>
+                                        {
+                                            for $book in doc()/book
+                                            let $modCategory := if ( sql:trim($category) = '') then ( '.*' ) else ("^" || $category || "$")
+                                            where $book/title[matches(., $title, "i")]
+                                                and  $book/author[matches(., $author, "i")]
+                                                and  $book/year[matches(., $year, "i")]
+                                                and  $book/price[matches(., $price, "i")]
+                                                and  $book[@category[matches(., $category, "i")]] 
+                                            return <li>{data($book/title)}</li>
+                                        }
+                                        </ul>
+                                    </div>
                             ) else ()
+
                         }
                 </div>
             }
