@@ -1,21 +1,21 @@
 # ml-start
 
 Small MarkLogic starter project
-
+hello
 Fork this project and follow the instructions below. When you are finished submit a pull request.
 
 ## Download and install MarkLogic
 
-* [http://developer.marklogic.com/products](http://developer.marklogic.com/products).
+- [http://developer.marklogic.com/products](http://developer.marklogic.com/products).
 
-## Create an HTTP server with this project as the *root* directory
+## Create an HTTP server with this project as the _root_ directory
 
 See [http://developer.marklogic.com/learn/get-started-apps-2](http://developer.marklogic.com/learn/get-started-apps-2)
 
-* port: 8080
-* database: Documents
-* authentication: application-level
-* default user: admin
+- port: 8080
+- database: Documents
+- authentication: application-level
+- default user: admin
 
 Browse to [http://localhost:8080/add-book.xqy](http://localhost:8080/add-book.xqy)
 
@@ -34,11 +34,9 @@ This page allows a user to add a book to the database
 
 1. Make it all look pretty (Add CSS, etc.)
 
-
-
 ## Reference Information
 
-* [MarkLogic Reference Documentation](http://docs.marklogic.com/)
-* [MarkLogic Tutorials](http://developer.marklogic.com/learn)
-* [w3schools XQuery Tutorial](http://www.w3schools.com/xquery/default.asp)
-* [w3schools XPath Tutorial](http://www.w3schools.com/xpath/default.asp)
+- [MarkLogic Reference Documentation](http://docs.marklogic.com/)
+- [MarkLogic Tutorials](http://developer.marklogic.com/learn)
+- [w3schools XQuery Tutorial](http://www.w3schools.com/xquery/default.asp)
+- [w3schools XPath Tutorial](http://www.w3schools.com/xpath/default.asp)
